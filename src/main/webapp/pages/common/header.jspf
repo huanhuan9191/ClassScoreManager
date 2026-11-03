@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${navTitle} · 班级学生成绩管理系统</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+</head>
+<body>
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="brand">
+            班级成绩管理
+            <small>CLASS SCORE MANAGER</small>
+        </div>
+        <ul class="menu">
+            <c:if test="${loginUser.role == 1}">
+                <li><a href="${ctx}/teacher/scoreInputServlet"
+                       class="${navActive == 'input' ? 'active' : ''}">📝 成绩录入</a></li>
+                <li><a href="${ctx}/teacher/statServlet"
+                       class="${navActive == 'stat' ? 'active' : ''}">📊 成绩统计</a></li>
+            </c:if>
+            <c:if test="${loginUser.role == 2}">
+                <li><a href="${ctx}/student/myScoreServlet"
+                       class="${navActive == 'my' ? 'active' : ''}">🎓 我的成绩</a></li>
+            </c:if>
+            <c:if test="${loginUser.role == 0}">
+                <li><a href="${ctx}/admin/dashboardServlet"
+                       class="${navActive == 'dash' ? 'active' : ''}">📈 控制台</a></li>
+                <li><a href="${ctx}/admin/classServlet"
+                       class="${navActive == 'cls' ? 'active' : ''}">🏫 班级管理</a></li>
+                <li><a href="${ctx}/admin/courseServlet"
+                       class="${navActive == 'course' ? 'active' : ''}">📚 课程管理</a></li>
+                <li><a href="${ctx}/admin/userServlet"
+                       class="${navActive == 'user' ? 'active' : ''}">👥 用户管理</a></li>
+            </c:if>
+        </ul>
+        <div class="sidebar-foot">
+            <div class="who">${loginUser.realName}</div>
+            <div>${loginUser.roleName}</div>
+        </div>
+    </aside>
+    <div class="main">
+        <div class="topbar">
+            <h1>${navTitle}</h1>
+            <div class="right">
+                <span>${loginUser.realName} · ${loginUser.roleName}</span>
+                <a class="btn btn-sm btn-ghost" href="${ctx}/logoutServlet">退出登录</a>
+            </div>
+        </div>
+        <div class="content">
